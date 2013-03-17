@@ -1,0 +1,15 @@
+{contentType application/xml}
+<?xml version="1.0" encoding="UTF-8"?>
+<SHOP>
+	{foreach $productRepository->findAll() as $entity}
+	<SHOPITEM>
+		<ITEM_ID>{$entity->id}</ITEM_ID>
+		<PRODUCTNAME>{$entity->name}</PRODUCTNAME>
+		<PRODUCT>{$entity->name}</PRODUCT>
+		<DESCRIPTION>{$entity->description}</DESCRIPTION>
+		<URL>{link this route=>$entity->route}</URL>
+		{if $entity->image}<IMGURL>{$server}{$entity->image->getFileUrl()}</IMGURL>{/if}
+		<PRICE_VAT>{$entity->price}</PRICE_VAT>
+	</SHOPITEM>
+	{/foreach}
+</SHOP>

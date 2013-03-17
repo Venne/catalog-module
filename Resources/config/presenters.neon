@@ -1,0 +1,17 @@
+factories:
+
+	catalog.categoryPresenter:
+		class: CatalogModule\Presenters\CategoryPresenter(@catalog.categoryRepository, @catalog.productRepository, @session::getSection('catalogModule'), @catalog.catalogControlFactory)
+		tags: [presenter]
+
+	catalog.orderPresenter:
+		class: CatalogModule\Presenters\OrderPresenter(@mailform.mailControlFactory, @catalog.orderRepository, @catalog.productRepository, @catalog.typeRepository, @session::getSection('catalogModule'), @catalog.productfrontFormFactory)
+		tags: [presenter]
+
+	catalog.productPresenter:
+		class: CatalogModule\Presenters\ProductPresenter(@catalog.categoryRepository, @catalog.productRepository, @session::getSection('catalogModule'), @catalog.catalogControlFactory)
+		tags: [presenter]
+
+	catalog.feedPresenter:
+		class: CatalogModule\Presenters\FeedPresenter(@catalog.productRepository)
+		tags: [presenter]

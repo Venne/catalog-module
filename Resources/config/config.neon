@@ -1,0 +1,42 @@
+services:
+
+	catalog.catalogContent:
+		class: CmsModule\Content\ContentType('CatalogModule\Entities\PageEntity')
+		setup:
+			- addSection('Categories', @catalog.categoriesControlFactory)
+			- addSection('Products', @catalog.productsControlFactory)
+#			- addSection('Types', @catalog.typesControlFactory)
+			- addSection('Labels', @catalog.labelControlFactory)
+			- addSection('Order form', @catalog.mailformFormFactory)
+			- addSection('Settings', @catalog.catalogFormFactory)
+			- addSection('Feeds', @catalog.feedsControlFactory)
+		tags: [contentType: [name: 'catalog']]
+
+	catalog.categoryRepository:
+		class: CatalogModule\Repositories\CategoryRepository
+		factory: @entityManager::getRepository('CatalogModule\Entities\CategoryEntity')
+		tags: [proxy: DoctrineModule\Repositories\BaseRepository]
+
+	catalog.productRepository:
+		class: CatalogModule\Repositories\ProductRepository
+		factory: @entityManager::getRepository('CatalogModule\Entities\ProductEntity')
+		tags: [proxy: DoctrineModule\Repositories\BaseRepository]
+
+	catalog.typeRepository:
+		class: CatalogModule\Repositories\TypeRepository
+		factory: @entityManager::getRepository('CatalogModule\Entities\TypeEntity')
+		tags: [proxy: DoctrineModule\Repositories\BaseRepository]
+
+	catalog.orderRepository:
+		class: CatalogModule\Repositories\OrderRepository
+		factory: @entityManager::getRepository('CatalogModule\Entities\OrderEntity')
+		tags: [proxy: DoctrineModule\Repositories\BaseRepository]
+
+	catalog.labelRepository:
+		class: CatalogModule\Repositories\LabelRepository
+		factory: @entityManager::getRepository('CatalogModule\Entities\LabelEntity')
+		tags: [proxy: DoctrineModule\Repositories\BaseRepository]
+
+includes:
+	- presenters.neon
+	- components.neon

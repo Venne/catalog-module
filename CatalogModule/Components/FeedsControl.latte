@@ -1,0 +1,5 @@
+{foreach $feeds as $key=>$name}
+	<h2>{$name}</h2>
+
+	<pre>{plink :Cms:Static:default route=>$page->feedRoute, type=>$key}</pre>
+{/foreach}

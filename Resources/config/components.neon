@@ -1,0 +1,79 @@
+services:
+
+	catalog.productfrontFormFactory:
+		class: CatalogModule\Forms\ProductfrontFormFactory(@catalog.typeRepository)
+		setup:
+			- injectFactory(@catalog.basicFormFactory)
+
+	catalog.productFormFactory:
+		class: CatalogModule\Forms\ProductFormFactory(..., @catalog.productRepository)
+		setup:
+			- injectFactory(@cms.admin.basicFormFactory)
+
+	catalog.categoryFormFactory:
+		class: CatalogModule\Forms\CategoryFormFactory(..., @catalog.categoryRepository)
+		setup:
+			- injectFactory(@cms.admin.basicFormFactory)
+
+	catalog.catalogFormFactory:
+		class: CatalogModule\Forms\CatalogFormFactory
+		setup:
+			- injectFactory(@cms.admin.basicFormFactory)
+
+	catalog.typeFormFactory:
+		class: CatalogModule\Forms\TypeFormFactory(..., @catalog.typeRepository)
+		setup:
+			- injectFactory(@cms.admin.basicFormFactory)
+
+	catalog.mailformFormFactory:
+		class: CatalogModule\Forms\MailformFormFactory
+		setup:
+			- injectFactory(@cms.admin.ajaxFormFactory)
+
+	catalog.labelFormFactory:
+		class: CatalogModule\Forms\LabelFormFactory
+		setup:
+			- injectFactory(@cms.admin.ajaxFormFactory)
+
+	catalog.cartFormFactory:
+		class: CatalogModule\Forms\CartFormFactory
+		setup:
+			- injectFactory(@cms.admin.ajaxFormFactory)
+
+	catalog.filterFormFactory:
+		class: CatalogModule\Forms\FilterFormFactory
+		setup:
+			- injectFactory(@cms.admin.ajaxFormFactory)
+			- injectLabelRepository(@catalog.labelRepository)
+
+factories:
+
+	catalog.basicForm:
+		class: Venne\Forms\Form
+		setup:
+			- setRenderer(@cms.formRenderer)
+			- setTranslator(@translator.translator)
+
+	catalog.categoriesControl:
+		class: CatalogModule\Components\CategoriesControl(@catalog.categoryRepository, @catalog.productRepository, @catalog.categoryFormFactory, @catalog.productFormFactory)
+		tags: [component]
+
+	catalog.productsControl:
+		class: CatalogModule\Components\ProductsControl(@catalog.productRepository, @catalog.productFormFactory)
+		tags: [component]
+
+	catalog.typesControl:
+		class: CatalogModule\Components\TypesControl(@catalog.typeRepository, @catalog.typeFormFactory)
+		tags: [component]
+
+	catalog.labelControl:
+		class: CatalogModule\Components\LabelControl(@catalog.labelRepository, @catalog.labelFormFactory)
+		tags: [component]
+
+	catalog.feedsControl:
+		class: CatalogModule\Components\FeedsControl
+		tags: [component]
+
+	catalog.catalogControl:
+		class: CatalogModule\Components\CatalogControl(@session::getSection('catalogModule'), ..., @catalog.productRepository)
+		tags: [widget: catalog]

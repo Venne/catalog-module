@@ -1,0 +1,179 @@
+{if $action=='cart'}
+	{var items=>0}
+	{var sum=>0}
+	<div class="navbar">
+		<div class="navbar-inner">
+			<div class="container">
+				{if $products}
+					{foreach $products as $id=>$orders}
+						{foreach $orders as $order}
+							{var $productEntity = $control->getProductRepository()->find($id)}
+							{continueIf !$productEntity}
+							{var $items=>$items+$order['sum']}
+							{var sum=>$sum+($order['sum'] * $productEntity->price)}
+						{/foreach}
+					{/foreach}
+				{/if}
+				<ul style="width: 100%;" class="nav">
+					<li style="width: 100%;" class="dropdown">
+						<a href="#" class="pull-left dropdown-toggle" data-toggle="dropdown"><span
+									class="icon icon-shopping-cart"></span> <strong>{_cart}:</strong> <span
+									class="pull-right">{$sum|number:0:' ':' '} Kč <b class="caret"></b></span></a>
+						<ul class="dropdown-menu">
+							{if $products && count($products) > 0}
+								<li class="nav-header">{_Products}</li>
+								{if $products}
+									{foreach $products as $id=>$orders}
+										{foreach $orders as $order}
+											{var $productEntity = $control->getProductRepository()->find($id)}
+											{continueIf !$productEntity}
+											<li style="min-width: 270px;"><a
+														href="{plink this route=>$productEntity->route}">{$productEntity->name}
+													<small>({$order['sum']} ks)</small>
+													<span class="pull-right">{$order['sum'] * $productEntity->price|number:0:' ':' '}
+														Kč</span></a></li>
+										{/foreach}
+									{/foreach}
+								{/if}
+								<li style="min-width: 270px;"><a href="javaScript:;"><strong>Celkem: <span
+													class="pull-right">{$sum|number:0:' ':' '} Kč</span></strong></a>
+								</li>
+								<li class="divider"></li>
+								<li><a n:href="deleteAll!"><span class="icon icon-remove"></span> {_'Clear cart'}</a>
+								</li>
+								<li><a href="{plink this route=>$presenter->page->getOrderRoute()}"><span
+												class="icon icon-shopping-cart"></span> {_'Order products'}</a></li>
+							{else}
+								<li class="nav-header">{_'Cart is empty'}</li>
+							{/if}
+						</ul>
+					</li>
+				</ul>
+
+			</div>
+		</div>
+	</div>
+{else}
+
+	{snippet add}
+	{if (isset($showAdd) && $showAdd == $entity->id) || (isset($showError) && $showError == $entity->id)}
+		<div class="modal fade" id="addModal" style="width: 800px; margin-left: -400px;">
+			<div class="modal-header">
+				<a href="{link this}" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+				{if !isset($showError)}
+					<h3>{_'Product has been added into cart'}</h3>
+				{else}
+					<h3>{_'Add product into cart'}</h3>
+				{/if}
+			</div>
+			<div class="modal-body">
+				{if !isset($showError)}
+					{capture $text}{_'Product %s has been successfully added into cart'}{/capture}
+					<p>{!=str_replace('%s', "<strong>{$entity->name}</strong>", $text)}</p>
+				{else}
+					{control $form}
+				{/if}
+			</div>
+			{if $form->isValid()}
+				<div class="modal-footer">
+					<a href="{link this}" class="btn" data-dismiss="modal" aria-hidden="true"><span
+								class="icon icon-arrow-left"></span> {_'Continue shoping'}</a>
+					<a href="{plink this route=>$presenter->page->orderRoute}" class="btn btn-primary"><span
+								class="icon icon-shopping-cart icon-white"></span> {_'Go to cart'}</a>
+				</div>
+			{/if}
+		</div>
+		<script type="text/javascript">
+			$('#addModal').modal('show').on('hidden', function () {
+				window.location = {link this};
+			});
+		</script>
+	{/if}
+	{/snippet}
+
+	{if $mode === 'table'}
+		<div class="media">
+			<a class="pull-left" href="{plink this route=>$entity->route}">
+				<img class="media-object" src="{if $entity->image}{$entity->image->getFileUrl()}{/if}" width="100"
+					 height="" alt=""/>
+			</a>
+
+			<div class="media-body">
+				<h4 class="media-heading"><a href="{plink this route=>$entity->route}">{$entity->name}</a></h4>
+
+				<span n:foreach="$entity->getLabels() as $label" class="label">{$label}</span>
+
+				<div class="media">
+					{$entity->description}
+
+					<div class="row-fluid">
+						<div class="span6">
+							<div class="lead" style="text-align: right;">
+								{$entity->price|number:0:' ':' '},-
+							</div>
+						</div>
+						<div class="span6">
+							{form $form class=>'pull-right'}
+							{input type class=>"input-small"}
+								<span class="input-append">
+								{input sum class=>"input-mini"}
+									<button class="btn btn-primary"
+											onclick="$({!$_form['order']->getControlPrototype()->id}).click();"><span
+												class="icon icon-white icon-shopping-cart"></span> Order
+									</button>
+							</span>
+							{input order class=>"btn hidden", style=>"display: none;"}
+							{/form}
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	{else}
+		<h4><a href="{plink this route=>$entity->route}">{$entity->name}</a></h4>
+		<span n:foreach="$entity->getLabels() as $label" class="label">{$label}</span>
+		<p>
+			{$entity->description}
+		</p>
+		<a href="{plink this route=>$entity->route}">
+			<img style="margin-bottom: 5px;" src="{if $entity->image}{$entity->image->getFileUrl()}{/if}" alt="" class="show" width="400" height=""/>
+		</a>
+
+		{if $entity->rrp}
+		<div class="row-fluid">
+			<div class="span12" style="min-height: 20px;">
+				<small class="muted">
+					<s>{$entity->rrp|number:0:' ':' '},-</s> &nbsp; (-{$entity->savedPercent}%)
+				</small>
+			</div>
+		</div>
+		{/if}
+
+		<div class="row-fluid">
+			<div class="span6">
+				<span class="lead">{$entity->price|number:0:' ':' '},-</span>
+			</div>
+			<div class="span6">
+				{form $form class=>'navbar-form'}
+				{if $_form['type'] instanceof \Nette\Forms\Controls\HiddenField}
+					{input type}
+				{/if}
+					<button class="pull-right span8 btn btn-primary"
+									onclick="$({!$_form['order']->getControlPrototype()->id}).click();"><span
+										class="icon icon-white icon-shopping-cart"></span> {_Order}</button>
+						{input order class=>"btn hidden", style=>"display: none;"}
+				{/form}
+			</div>
+		</div>
+
+		{if $entity->inStock !== NULL}
+		<div class="row-fluid">
+			<div class="span12" style="min-height: 20px;">
+				<small>{_'In stock:'} {$entity->inStock}&nbsp;{_pieces}</small>
+			</div>
+		</div>
+		{/if}
+	{/if}
+
+{/if}

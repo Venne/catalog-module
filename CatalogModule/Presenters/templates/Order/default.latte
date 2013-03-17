@@ -1,0 +1,66 @@
+{css @catalogModule/css/wizard.bootstrap.css}
+
+{block #title}{_$entity->orderRoute->title}{/block}
+
+{block content}
+
+{control catalog:cart}
+
+<div class="wizard row-fluid">
+	<div class="step span3 active"><span class="badge">1</span> {_'Cart'}</div>
+	<div class="step span3{if $presenter->step > 1} active{/if}"><span class="badge">2</span> {_'Billing information'}</div>
+	<div class="step span6{if $presenter->step > 2} active{/if}"><span class="badge">3</span> {_'Finish'}</div>
+</div>
+
+{if $presenter->step == 1}
+<h2>{_'List of product to ordering'}</h2>
+	<table class="table table-bordered table-condensed">
+		<thead>
+			<tr>
+				<th width="25%">{_Name}</th>
+				<th width="20%">{_Category}</th>
+				<th width="20%">{_Model}</th>
+				<th width="20%">{_Sum}</th>
+				<th width="15%">{_Price}</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+		{var sum=>0}
+		{foreach $products as $id=>$orders}
+			{foreach $orders as $orderId=>$item}
+
+				<tr>
+                    <td><a n:href="this route=>$item['productEntity']->route">{$item['productEntity']->name}</a></td>
+					<td>{$item['productEntity']->category}</td>
+					<td>{$item['typeEntity']->name}</td>
+                    <td>{$item['sum']}</td>
+					{var sum=>$sum + $item['sum'] * $item['productEntity']->price}
+                    <td>{$item['sum'] * $item['productEntity']->price}</td>
+					<td><a class="btn btn-mini" n:href="deleteProduct! $id,$orderId">{_remove}</a></td>
+				</tr>
+			{/foreach}
+		{/foreach}
+		</tbody>
+        <tfoot>
+        <tr>
+            <th colspan="4"></th>
+            <th>{$sum}</th>
+            <th></th>
+        </tr>
+        </tfoot>
+	</table>
+	{if count($products) > 0}
+	{control cartForm}
+	{/if}
+{elseif $presenter->step == 2}
+	{if count($products) > 0}
+	<h2>{_'Order form'}</h2>
+	{control orderForm}
+	{/if}
+{elseif $presenter->step == 3}
+	<h2>{_'Your order has been sent'}</h2>
+
+	<p>
+	</p>
+{/if}

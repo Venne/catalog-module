@@ -1,0 +1,73 @@
+.wizard a, .wizard .step {
+    padding: 10px 12px 10px;
+    margin-right: 0px;
+    background: #efefef;
+    position: relative;
+    display: inline-block;
+    color: #777777;
+}
+.wizard a:before, .wizard .step:before {
+    width: 0;
+    height: 0;
+    border-top: 20px inset transparent;
+    border-bottom: 20px inset transparent;
+    border-left: 10px solid #fff;
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+}
+.wizard a:after, .wizard .step:after {
+    width: 0;
+    height: 0;
+    border-top: 20px inset transparent;
+    border-bottom: 20px inset transparent;
+    border-left: 10px solid #efefef;
+    position: absolute;
+    content: "";
+    top: 0;
+    right: -10px;
+    z-index: 2;
+}
+.wizard a:first-child:before,
+.wizard a:last-child:after {
+    border: none;
+}
+.wizard a:first-child {
+    -webkit-border-radius: 4px 0 0 4px;
+    -moz-border-radius: 4px 0 0 4px;
+    border-radius: 4px 0 0 4px;
+}
+.wizard a:last-child {
+    -webkit-border-radius: 0 4px 4px 0;
+    -moz-border-radius: 0 4px 4px 0;
+    border-radius: 0 4px 4px 0;
+}
+.wizard .badge {
+    margin: 0 5px 0 18px;
+    position: relative;
+    top: -1px;
+}
+.wizard a:first-child .badge {
+    margin-left: 0;
+}
+.wizard .active {
+    background: #007ACC;
+    color: #fff;
+}
+.wizard a.active {
+    color: #dddddd;
+}
+.wizard .active:after {
+    border-left-color: #007ACC;
+}
+.wizard .active .badge {
+    background-color: #333;
+}
+.wizard a:hover {
+    text-decoration: none;
+    color: #333333;
+}
+.wizard a.active:hover {
+    color: #ffffff;
+}

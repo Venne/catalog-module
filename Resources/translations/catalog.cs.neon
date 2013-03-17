@@ -1,0 +1,44 @@
+rRP: doporučená cena
+'you save': ušetříte
+product: produkt
+products: produkty
+categories: kategorie
+subcategories: podkategorie
+'by price': podle ceny
+'by name': podle jména
+items: položky
+price: cena
+'clear cart': vyprázdnit košík
+'order products': objednat zboží
+category: kategorie
+sum: počet
+'list of product to ordering': výpis košíku
+'order form': objednávkový formulář
+send: odeslat
+sender: odesílatel
+order: koupit
+cart: nákupní košík
+'product has been added into cart': produkt byl přidán do košíku
+'continue shoping': pokračovat v nakupování
+'go to cart': přejít do košíku
+'cart is empty': košík je prázdný
+'product %s has been successfully added into cart': produkt %s byl úspěšně přidán do košíku
+'product has been removed from cart.': produkt byl odstraněn z košíku.
+'cart is empty.': nákupní košík je prázdný.
+'billing information': fakturační údaje
+result: souhrn
+finish: dokončení
+feeds: zdroje
+labels: štítky
+label: štítek
+'main category': hlavní kategorie
+'next categories': další kategorie
+'vat rate': daňová sazba
+'continue to order': pokračovat v objednávce
+'complete order': dokončit objednávku
+'in stock': na skladě
+pieces: ks.
+extended: rozšířené
+'add product into cart': přidat produkt do košíku
+'cart has been cleared.': nákupní košík byl vyprázdňen.
+'show next items': zobrazit další položky
