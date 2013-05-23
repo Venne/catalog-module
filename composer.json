@@ -26,9 +26,9 @@
 		"venne": {
 			"installers": ["DoctrineModule\\Module\\Installers\\DoctrineInstaller"],
 			"configuration": {
-				"includes": [
-					"%modules.catalog.path%/Resources/config/config.neon"
-				],
+				"extensions": {
+					"catalog": "CatalogModule\\DI\\CatalogExtension"
+				},
 				"translator": {
 					"dictionaries": [
 						"%modules.catalog.path%/Resources/translations"
