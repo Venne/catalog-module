@@ -1,0 +1,142 @@
+services:
+
+	catalog.pages.catalog.catalogContent:
+		class: CmsModule\Content\ContentType('CatalogModule\Pages\Catalog\PageEntity')
+		setup:
+			- addSection('Products', @catalog.pages.catalog.productsControlFactory)
+			- addSection('Categories', @catalog.pages.catalog.categoriesControlFactory)
+			- addSection('Types', @catalog.pages.catalog.typesControlFactory)
+			- addSection('Labels', @catalog.pages.catalog.labelControlFactory)
+			- addSection('Order form', @catalog.pages.catalog.mailformFormFactory)
+			- addSection('Settings', @catalog.pages.catalog.catalogFormFactory)
+			- addSection('Feeds', @catalog.pages.catalog.feedsControlFactory)
+		tags: [contentType: [name: 'catalog']]
+
+	catalog.pages.catalog.routeRepository:
+		class: CatalogModule\Pages\Catalog\RouteRepository
+		factory: @entityManager::getRepository('CatalogModule\Pages\Catalog\RouteEntity')
+		tags: [proxy: DoctrineModule\Repositories\BaseRepository]
+
+	catalog.pages.catalog.categoryRepository:
+		class: CatalogModule\Pages\Catalog\CategoryRepository
+		factory: @entityManager::getRepository('CatalogModule\Pages\Catalog\CategoryEntity')
+		tags: [proxy: DoctrineModule\Repositories\BaseRepository]
+
+	catalog.pages.catalog.itemRepository:
+		class: CatalogModule\Pages\Catalog\ItemRepository
+		factory: @entityManager::getRepository('CatalogModule\Pages\Catalog\ItemEntity')
+		tags: [proxy: DoctrineModule\Repositories\BaseRepository]
+
+	catalog.pages.catalog.typeRepository:
+		class: CatalogModule\Pages\Catalog\TypeRepository
+		factory: @entityManager::getRepository('CatalogModule\Pages\Catalog\TypeEntity')
+		tags: [proxy: DoctrineModule\Repositories\BaseRepository]
+
+	catalog.pages.catalog.orderRepository:
+		class: CatalogModule\Pages\Catalog\OrderRepository
+		factory: @entityManager::getRepository('CatalogModule\Pages\Catalog\OrderEntity')
+		tags: [proxy: DoctrineModule\Repositories\BaseRepository]
+
+	catalog.pages.catalog.labelRepository:
+		class: CatalogModule\Pages\Catalog\LabelRepository
+		factory: @entityManager::getRepository('CatalogModule\Pages\Catalog\LabelEntity')
+		tags: [proxy: DoctrineModule\Repositories\BaseRepository]
+
+
+
+	catalog.pages.catalog.productfrontFormFactory:
+		class: CatalogModule\Pages\Catalog\Forms\ProductfrontFormFactory
+		setup:
+			- injectFactory(@cms.admin.basicFormFactory)
+
+	catalog.pages.catalog.productFormFactory:
+		class: CatalogModule\Pages\Catalog\Forms\ProductFormFactory
+		setup:
+			- injectFactory(@cms.admin.basicFormFactory)
+
+	catalog.pages.catalog.categoryFormFactory:
+		class: CatalogModule\Pages\Catalog\Forms\CategoryFormFactory
+		setup:
+			- injectFactory(@cms.admin.basicFormFactory)
+
+	catalog.pages.catalog.catalogFormFactory:
+		class: CatalogModule\Pages\Catalog\Forms\CatalogFormFactory
+		setup:
+			- injectFactory(@cms.admin.basicFormFactory)
+
+	catalog.pages.catalog.typeFormFactory:
+		class: CatalogModule\Pages\Catalog\Forms\TypeFormFactory
+		setup:
+			- injectFactory(@cms.admin.basicFormFactory)
+
+	catalog.pages.catalog.mailformFormFactory:
+		class: CatalogModule\Pages\Catalog\Forms\MailformFormFactory
+		setup:
+			- injectFactory(@cms.admin.ajaxFormFactory)
+
+	catalog.pages.catalog.labelFormFactory:
+		class: CatalogModule\Pages\Catalog\Forms\LabelFormFactory
+		setup:
+			- injectFactory(@cms.admin.ajaxFormFactory)
+
+	catalog.pages.catalog.cartFormFactory:
+		class: CatalogModule\Pages\Catalog\Forms\CartFormFactory
+		setup:
+			- injectFactory(@cms.admin.ajaxFormFactory)
+
+	catalog.pages.catalog.filterFormFactory:
+		class: CatalogModule\Pages\Catalog\Forms\FilterFormFactory
+		setup:
+			- injectFactory(@cms.admin.ajaxFormFactory)
+			- injectLabelRepository(@catalog.pages.catalog.labelRepository)
+
+factories:
+	catalog.pages.catalog.routePresenter:
+		class: CatalogModule\Pages\Catalog\RoutePresenter
+		tags: [presenter]
+
+	catalog.pages.catalog.categoryPresenter:
+		class: CatalogModule\Pages\Catalog\CategoryPresenter
+		tags: [presenter]
+
+	catalog.pages.catalog.itemPresenter:
+		class: CatalogModule\Pages\Catalog\ItemPresenter
+		tags: [presenter]
+
+	catalog.pages.catalog.cartPresenter:
+		class: CatalogModule\Pages\Catalog\CartPresenter(@mailform.mailControlFactory, ..., ..., ..., @session::getSection('catalogModule'))
+		tags: [presenter]
+
+	catalog.pages.catalog.feedPresenter:
+		class: CatalogModule\Pages\Catalog\FeedPresenter
+		tags: [presenter]
+
+
+	catalog.pages.catalog.categoriesControl:
+		class: CatalogModule\Pages\Catalog\Components\CategoriesControl
+		tags: [component]
+
+	catalog.pages.catalog.productsControl:
+		class: CatalogModule\Pages\Catalog\Components\ProductsControl
+		tags: [component]
+
+	catalog.pages.catalog.typesControl:
+		class: CatalogModule\Pages\Catalog\Components\TypesControl
+		tags: [component]
+
+	catalog.pages.catalog.labelControl:
+		class: CatalogModule\Pages\Catalog\Components\LabelControl
+		tags: [component]
+
+	catalog.pages.catalog.feedsControl:
+		class: CatalogModule\Pages\Catalog\Components\FeedsControl
+		tags: [component]
+
+	catalog.pages.catalog.productControl:
+		class: CatalogModule\Pages\Catalog\Components\ProductControl(@session::getSection('catalogModule'))
+		tags: [widget: catalogProduct]
+
+	catalog.pages.catalog.cartControl:
+		class: CatalogModule\Pages\Catalog\Components\CartControl(@session::getSection('catalogModule'))
+		tags: [widget: catalogCart]
+

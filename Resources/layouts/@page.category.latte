@@ -1,0 +1,47 @@
+{define #page-content}
+
+{control catalogCart}
+
+	{var $thumbnail = 'x120'}
+
+	{if $presenter->route->photo}
+		<a class="thumbnail" href="{$presenter->route->photo->getFileUrl()}" rel="lightbox">
+			<img class="media-object" n:src="$presenter->route->photo->getFileUrl(true), size=>$thumbnail" alt="{$presenter->route->name}"/>
+		</a>
+	{/if}
+
+	{if count($presenter->categories)}
+		<h2>{_Subcategories}</h2>
+		{control itemList $presenter->categories, config=>[variant=>'catalogCategoryList']}
+	{/if}
+
+	<h2>{_Products}</h2>
+
+	<div class="tabbable">
+		<ul class="nav nav-tabs">
+			<li n:class="$presenter->order=='price' ? active"><a n:href="this order=>'price'">{_'By price'}</a></li>
+			<li n:class="$presenter->order=='name' ? active"><a n:href="this order=>'name'">{_'By name'}</a></li>
+
+			<li class="pull-right active dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">{_Items}: {$presenter->itemsPerPage} <b class="caret"></b></a>
+				<ul class="dropdown-menu">
+					<li><a href="{link this itemsPerPage=>10}">10</a></li>
+					<li><a href="{link this itemsPerPage=>20}">20</a></li>
+					<li><a href="{link this itemsPerPage=>50}">50</a></li>
+					<li><a href="{link this itemsPerPage=>100}">100</a></li>
+					<li><a href="{link this itemsPerPage=>200}">200</a></li>
+					<li><a href="{link this itemsPerPage=>500}">500</a></li>
+				</ul>
+			</li>
+			<li class="pull-right{if $presenter->show !== NULL} active{/if}"><a href="{link this show=>'table'}"><span class="icon icon-th-list"></span></a></li>
+			<li class="pull-right{if $presenter->show === NULL} active{/if}"><a href="{link this show=>NULL}"><span class="icon icon-th"></span></a></li>
+		</ul>
+	</div>
+
+	{control vp}
+	{if $presenter->order=='price'}{var $qb = $control->getItemsBuilder()->orderBy('a.price', 'ASC')}{/if}
+	{if $presenter->order=='name'}{var $qb = $control->getItemsBuilder()->orderBy('r.name', 'ASC')}{/if}
+	{control itemList $qb->getQuery()->getResult(), config=>[variant=>'catalogListDefault']}
+	{control vp}
+
+{/define}

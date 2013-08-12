@@ -1,0 +1,34 @@
+{cache [$presenter->route->id, $presenter->lang], tags => [\CmsModule\Content\Entities\PageEntity::CACHE, \CmsModule\Content\Entities\RouteEntity::CACHE, \CmsModule\Pages\Tags\TagEntity::CACHE, \CmsModule\Content\Entities\LanguageEntity::CACHE]}
+<div class="row-fluid">
+	<div class="span6">
+		<ul class="nav nav-tabs nav-stacked">
+			{foreach $routes as $category}
+				{continueIf $iterator->isEven()}
+				<li><a href="{plink this route=>$category->route}">{include #categories-items-item, category=>$category}</a></li>
+			{/foreach}
+		</ul>
+	</div>
+	<div class="span6">
+		<ul class="nav nav-tabs nav-stacked">
+			{foreach $routes as $category}
+				{continueIf $iterator->isOdd()}
+				<li><a href="{plink this route=>$category->route}">{include #categories-items-item, category=>$category}</a></li>
+			{/foreach}
+		</ul>
+	</div>
+</div>
+
+
+{define #categories-items-item}
+	{var $thumbnail = 'x32'}
+
+	<div class="media">
+		{if $category->route->photo}
+			<img class="media-object img-rounded pull-right" n:src="$category->route->photo->getFileUrl(true), size=>$thumbnail" alt="{$category}" height="32">
+		{else}
+			<img class="media-object img-rounded pull-right" src="holder.js/32x32" alt="{$category->route->name}"/>
+		{/if}
+		<div class="media-body"><strong>{$category}</strong> <small>{$category->route->notation}</small></div>
+	</div>
+{/define}
+{/cache}

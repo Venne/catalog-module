@@ -1,0 +1,53 @@
+{var $items = 0}
+{var $sum = 0}
+<div class="navbar">
+	<div class="navbar-inner">
+		<div class="container">
+			{if $products}
+				{foreach $products as $id=>$orders}
+					{foreach $orders as $order}
+						{var $productEntity = $control->getItemRepository()->find($id)}
+						{continueIf !$productEntity}
+						{var $items = $items+$order['sum']}
+							{var $sum = $sum+($order['sum'] * $productEntity->price)}
+					{/foreach}
+				{/foreach}
+			{/if}
+			<ul style="width: 100%;" class="nav">
+				<li style="width: 100%;" class="dropdown">
+					<a href="#" class="pull-left dropdown-toggle" data-toggle="dropdown"><span
+								class="icon icon-shopping-cart"></span> <strong>{_cart}:</strong> <span
+								class="pull-right">{$sum|number:0:' ':' '} Kč <b class="caret"></b></span></a>
+					<ul class="dropdown-menu">
+						{if $products && count($products) > 0}
+							<li class="nav-header">{_Products}</li>
+							{if $products}
+								{foreach $products as $id=>$orders}
+									{foreach $orders as $order}
+										{var $productEntity = $control->getItemRepository()->find($id)}
+										{continueIf !$productEntity}
+										<li style="min-width: 270px;"><a
+													href="{plink this route=>$productEntity->route}">{$productEntity->name}
+												<small>({$order['sum']} ks)</small>
+												<span class="pull-right">{$order['sum'] * $productEntity->price|number:0:' ':' '}
+													Kč</span></a></li>
+									{/foreach}
+								{/foreach}
+							{/if}
+							<li style="min-width: 270px;"><a href="javaScript:;"><strong>Celkem: <span
+												class="pull-right">{$sum|number:0:' ':' '} Kč</span></strong></a>
+							</li>
+							<li class="divider"></li>
+							<li><a n:href="deleteAll!"><span class="icon icon-remove"></span> {_'Clear cart'}</a>
+							</li>
+							<li><a href="{plink this route=>$presenter->extendedPage->getOrderRoute()}"><span
+											class="icon icon-shopping-cart"></span> {_'Order products'}</a></li>
+						{else}
+							<li class="nav-header">{_'Cart is empty'}</li>
+						{/if}
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
