@@ -50,7 +50,7 @@
 				<span n:foreach="$entity->getLabels() as $label" class="label">{$label}</span>
 
 				<div class="media">
-					{$entity->route->description}
+					{$entity->route->notation}
 
 					<div class="row-fluid">
 						<div class="span6">
@@ -81,7 +81,7 @@
 		<h4><a href="{plink this route=>$entity->route}">{$entity->name}</a></h4>
 		<span n:foreach="$entity->getLabels() as $label" class="label">{$label}</span>
 		<p>
-			{$entity->route->description}
+			{$entity->route->notation}
 		</p>
 		<a href="{plink this route=>$entity->route}">
 			<img style="margin-bottom: 5px;" src="{if $entity->route->photo}{$entity->route->photo->getFileUrl()}{/if}" alt="" class="show" width="400" height=""/>

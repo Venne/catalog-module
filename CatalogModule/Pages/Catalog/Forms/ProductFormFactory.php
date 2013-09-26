@@ -37,6 +37,7 @@ class ProductFormFactory extends FormFactory
 		$route = $form->addOne('route');
 
 		$group = $form->addGroup();
+		$route->setCurrentGroup($group);
 		$form->addText('name', 'Name');
 		$form->addText('price', 'Price')
 			->setDefaultValue(0)
@@ -45,9 +46,8 @@ class ProductFormFactory extends FormFactory
 		$form->addText('rrp', 'RRP')
 			->addCondition($form::FILLED)
 			->addRule($form::FLOAT);
-		$form->addTextArea('notation', 'Description')->getControlPrototype()->attrs['class'] = 'input-block-level';
+		$route->addTextArea('notation', 'Description');
 
-		$route->setCurrentGroup($group);
 		$route->addFileEntityInput('photo', 'Image');
 		$form->addText('inStock', 'In stock')
 			->addCondition($form::FILLED)
