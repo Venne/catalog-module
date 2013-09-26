@@ -48,7 +48,7 @@ class FeedPresenter extends PagePresenter
 	}
 
 
-	public function startup()
+	protected function startup()
 	{
 		parent::startup();
 

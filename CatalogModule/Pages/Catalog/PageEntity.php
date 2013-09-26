@@ -68,7 +68,7 @@ class PageEntity extends \GalleryModule\Pages\Gallery\AbstractPageEntity
 	protected $vat = 150;
 
 
-	public function startup()
+	protected function startup()
 	{
 		parent::startup();
 

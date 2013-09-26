@@ -64,7 +64,7 @@ class ItemEntity extends AbstractItemEntity
 	protected $inStock;
 
 
-	public function startup()
+	protected function startup()
 	{
 		parent::startup();
 

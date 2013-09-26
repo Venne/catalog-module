@@ -55,7 +55,7 @@ class CategoryEntity extends \GalleryModule\Pages\Gallery\AbstractCategoryEntity
 	protected $types;
 
 
-	public function startup()
+	protected function startup()
 	{
 		parent::startup();
 
