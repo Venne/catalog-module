@@ -39,8 +39,8 @@
 {cache [$entity->id, $mode, $presenter->lang]}
 	{if $mode === 'table'}
 		<div class="media">
-			<a class="pull-left" href="{plink this route=>$entity->route}">
-				<img class="media-object" src="{if $entity->route->photo}{$entity->route->photo->getFileUrl()}{/if}" width="100"
+			<a class="pull-left" href="{plink this route=>$entity->route}" n:if="$entity->route->photo">
+				<img class="media-object" src="{$entity->route->photo->getFileUrl()}" width="100"
 					 height="" alt=""/>
 			</a>
 
@@ -83,8 +83,8 @@
 		<p>
 			{$entity->route->notation}
 		</p>
-		<a href="{plink this route=>$entity->route}">
-			<img style="margin-bottom: 5px;" src="{if $entity->route->photo}{$entity->route->photo->getFileUrl()}{/if}" alt="" class="show" width="400" height=""/>
+		<a href="{plink this route=>$entity->route}" n:if="$entity->route->photo">
+			<img style="margin-bottom: 5px;" src="{$entity->route->photo->getFileUrl()}" alt="" class="show" width="400" height=""/>
 		</a>
 
 		{if $entity->rrp}
