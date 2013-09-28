@@ -18,7 +18,7 @@ use Nette\Utils\Strings;
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
  * @ORM\Entity
- * @ORM\Table(name="catalogFeed")
+ * @ORM\Table(name="catalog_feed")
  */
 class FeedEntity extends ExtendedRouteEntity
 {

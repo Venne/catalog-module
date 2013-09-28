@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
  * @ORM\Entity(repositoryClass="\DoctrineModule\Repositories\BaseRepository")
- * @ORM\Table(name="catalogOrderItems")
+ * @ORM\Table(name="catalog_order_items")
  */
 class OrderItemsEntity implements \DoctrineModule\Entities\IEntity
 {

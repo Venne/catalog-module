@@ -19,7 +19,7 @@ use MailformModule\Entities\MailformEntity;
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
  * @ORM\Entity(repositoryClass="\CmsModule\Content\Repositories\PageRepository")
- * @ORM\Table(name="catalogPage")
+ * @ORM\Table(name="catalog_page")
  */
 class PageEntity extends \GalleryModule\Pages\Gallery\AbstractPageEntity
 {

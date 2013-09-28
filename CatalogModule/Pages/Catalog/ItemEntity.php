@@ -9,7 +9,7 @@ use GalleryModule\Pages\Gallery\AbstractItemEntity;
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
  * @ORM\Entity(repositoryClass="\CatalogModule\Pages\Catalog\ItemRepository")
- * @ORM\Table(name="catalogProduct")
+ * @ORM\Table(name="catalog_product")
  */
 class ItemEntity extends AbstractItemEntity
 {

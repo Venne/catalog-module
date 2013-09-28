@@ -17,7 +17,7 @@ use GalleryModule\Pages\Gallery\AbstractRouteEntity;
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
  * @ORM\Entity(repositoryClass="\CatalogModule\Pages\Catalog\RouteRepository")
- * @ORM\Table(name="catalogRoute")
+ * @ORM\Table(name="catalog_route")
  */
 class RouteEntity extends AbstractRouteEntity
 {

@@ -9,7 +9,7 @@ use Venne;
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
  * @ORM\Entity(repositoryClass="\CatalogModule\Pages\Catalog\LabelRepository")
- * @ORM\Table(name="catalogLabel")
+ * @ORM\Table(name="catalog_label")
  */
 class LabelEntity extends NamedEntity
 {
