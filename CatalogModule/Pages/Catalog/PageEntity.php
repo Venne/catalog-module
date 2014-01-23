@@ -11,24 +11,16 @@
 
 namespace CatalogModule\Pages\Catalog;
 
-use BlogModule\Pages\Blog\AbstractPageEntity;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use MailformModule\Entities\MailformEntity;
+use MailformModule\Pages\Mailform\MailformEntity;
 
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
  * @ORM\Entity(repositoryClass="\CmsModule\Content\Repositories\PageRepository")
  * @ORM\Table(name="catalog_page")
  */
-class PageEntity extends \GalleryModule\Pages\Gallery\AbstractPageEntity
+class PageEntity extends \BlogModule\Pages\Blog\AbstractPageEntity
 {
-
-	/**
-	 * @var CategoryEntity[]
-	 * @ORM\OneToMany(targetEntity="CategoryEntity",mappedBy="page")
-	 */
-	protected $categories;
 
 	/**
 	 * @ORM\OneToMany(targetEntity="OrderEntity", mappedBy="page", cascade={"persist"}, orphanRemoval=true)
@@ -50,8 +42,8 @@ class PageEntity extends \GalleryModule\Pages\Gallery\AbstractPageEntity
 	protected $feedRoute;
 
 	/**
-	 * @var \MailformModule\Entities\MailformEntity
-	 * @ORM\OneToOne(targetEntity="MailformModule\Entities\MailformEntity", cascade={"all"})
+	 * @var \MailformModule\Pages\Mailform\MailformEntity
+	 * @ORM\OneToOne(targetEntity="MailformModule\Pages\Mailform\MailformEntity", cascade={"all"})
 	 */
 	protected $mailform;
 
@@ -74,7 +66,6 @@ class PageEntity extends \GalleryModule\Pages\Gallery\AbstractPageEntity
 
 		$this->orderRoute = $this->createRoute($this->getReflection()->getNamespaceName() . '\CartEntity');
 		$this->feedRoute = $this->createRoute($this->getReflection()->getNamespaceName() . '\FeedEntity');
-		$this->categories = new ArrayCollection;
 
 		$this->template = '
 Products
@@ -91,15 +82,6 @@ Products
 	}
 
 
-
-
-	/**
-	 * @return CategoryRouteEntity
-	 */
-	public function getCategories()
-	{
-		return $this->categories;
-	}
 
 
 	public function getOrder()

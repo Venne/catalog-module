@@ -51,11 +51,11 @@ class LabelControl extends SectionControl
 		$table = $admin->getTable();
 		$table->setModel(new Doctrine($this->repository->createQueryBuilder('a')));
 
-		$table->addColumn('name', 'Name')
+		$table->addColumnText('name', 'Name')
 			->setSortable()
 			->getCellPrototype()->width = '100%';
 		$table->getColumn('name')
-			->setFilter()->setSuggestion();
+			->setFilterText()->setSuggestion();
 
 		$form = $admin->createForm($this->labelFormFactory, 'Label', NULL, \CmsModule\Components\Table\Form::TYPE_LARGE);
 

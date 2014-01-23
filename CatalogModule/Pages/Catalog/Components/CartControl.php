@@ -46,7 +46,7 @@ class CartControl extends Control
 	public function handleDeleteAll()
 	{
 		unset($this->sessionSection->products);
-		$this->presenter->flashMessage('Cart has been cleared.', 'success');
+		$this->presenter->flashMessage($this->translator->translate('Cart has been cleared.'), 'success');
 		$this->redirect('this');
 	}
 

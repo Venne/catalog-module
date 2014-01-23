@@ -59,11 +59,11 @@ class TypesControl extends SectionControl
 		$table = $admin->getTable();
 		$table->setModel(new Doctrine($this->typeRepository->createQueryBuilder('a')));
 
-		$table->addColumn('name', 'Name')
+		$table->addColumnText('name', 'Name')
 			->setSortable()
 			->getCellPrototype()->width = '100%';
 		$table->getColumn('name')
-			->setFilter()->setSuggestion();
+			->setFilterText()->setSuggestion();
 
 		$table->addAction('edit', 'Edit')
 			->getElementPrototype()->class[] = 'ajax';

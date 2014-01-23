@@ -23,7 +23,7 @@ class FeedsControl extends SectionControl
 	public function render()
 	{
 		$this->template->feeds = FeedPresenter::$types;
-		$this->template->page = $this->getEntity();
+		$this->template->page = $this->getExtendedPage();
 
 		$zal = $this->presenter->absoluteUrls;
 		$this->presenter->absoluteUrls = true;

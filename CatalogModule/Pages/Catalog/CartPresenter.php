@@ -52,9 +52,6 @@ class CartPresenter extends BasePresenter
 	/** @var CartFormFactory */
 	protected $cartFormFactory;
 
-	/** @var ITranslator */
-	protected $translator;
-
 
 	public function __construct($orderFormFactory, OrderRepository $orderRepository, ItemRepository $productRepository, TypeRepository $typeRepository, \Nette\Http\SessionSection $sessionSection, ProductfrontFormFactory $formFactory)
 	{
@@ -75,15 +72,6 @@ class CartPresenter extends BasePresenter
 	public function injectCartFormFactory(CartFormFactory $cartFormFactory)
 	{
 		$this->cartFormFactory = $cartFormFactory;
-	}
-
-
-	/**
-	 * @param \Nette\Localization\ITranslator $translator
-	 */
-	public function injectTranslator(ITranslator $translator)
-	{
-		$this->translator = $translator;
 	}
 
 
@@ -152,7 +140,7 @@ class CartPresenter extends BasePresenter
 	public function orderFormSuccess(MailControl $control)
 	{
 		unset($this->sessionSection->products);
-		$this->flashMessage('Message has been sent', 'success');
+		$this->flashMessage($this->translator->translate('Message has been sent'), 'success');
 		$this->redirect('this', array('step' => 3));
 	}
 
@@ -182,14 +170,14 @@ class CartPresenter extends BasePresenter
 
 					$productEntity = $this->productRepository->find($id);
 					if (!$productEntity) {
-						$this->flashMessage('Některý z produktů, který jste měl v košíku, již neexistuje.', 'error');
+						$this->flashMessage($this->translator->translate('Některý z produktů, který jste měl v košíku, již neexistuje.'), 'warning');
 						continue;
 					}
 
 					if ($order['values']['type']) {
 						$typeEntity = $this->typeRepository->find($order['values']['type']);
 						if (!$typeEntity) {
-							$this->flashMessage('Některý z modelů produktu, který jste měl v košíku, již neexistuje.', 'error');
+							$this->flashMessage($this->translator->translate('Některý z modelů produktu, který jste měl v košíku, již neexistuje.'), 'warning');
 							continue;
 						}
 					}

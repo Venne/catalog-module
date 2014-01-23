@@ -1,18 +1,18 @@
 {cache [$presenter->route->id, $presenter->lang], tags => [\CmsModule\Content\Entities\PageEntity::CACHE, \CmsModule\Content\Entities\RouteEntity::CACHE, \CmsModule\Pages\Tags\TagEntity::CACHE, \CmsModule\Content\Entities\LanguageEntity::CACHE]}
-<div class="row-fluid">
-	<div class="span6">
+<div class="row">
+	<div class="col-md-6">
 		<ul class="nav nav-tabs nav-stacked">
 			{foreach $routes as $category}
 				{continueIf $iterator->isEven()}
-				<li><a href="{plink this route=>$category->route}">{include #categories-items-item, category=>$category}</a></li>
+				<li><a href="{plink this route => $category->route}">{include #categories-items-item, category => $category}</a></li>
 			{/foreach}
 		</ul>
 	</div>
-	<div class="span6">
+	<div class="col-md-6">
 		<ul class="nav nav-tabs nav-stacked">
 			{foreach $routes as $category}
 				{continueIf $iterator->isOdd()}
-				<li><a href="{plink this route=>$category->route}">{include #categories-items-item, category=>$category}</a></li>
+				<li><a href="{plink this route => $category->route}">{include #categories-items-item, category => $category}</a></li>
 			{/foreach}
 		</ul>
 	</div>

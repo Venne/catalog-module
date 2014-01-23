@@ -63,7 +63,7 @@ class BasePresenter extends \CmsModule\Content\Presenters\PagePresenter
 
 	protected function createComponentVp()
 	{
-		$vp = new \CmsModule\Components\VisualPaginator;
+		$vp = new \CmsModule\Components\PaginationControl;
 		$pg = $vp->getPaginator();
 		$pg->setItemsPerPage($this->itemsPerPage);
 		return $vp;

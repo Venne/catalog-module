@@ -13,8 +13,7 @@
 	"require": {
 		"php": ">=5.3.2",
 		"venne/cms-module": "2.1.x-dev",
-		"venne/mailform-module": "2.1.x-dev",
-		"venne/gallery-module": "2.1.x-dev"
+		"venne/mailform-module": "2.1.x-dev"
 	},
 	"autoload": {
 		"psr-0": {

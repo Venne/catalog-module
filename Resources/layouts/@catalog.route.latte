@@ -2,6 +2,10 @@
 
 {control catalogCart}
 
+	{cache [$presenter->routeId], tags => [
+		'route-' . $presenter->routeId,
+		'language-' . $presenter->lang,
+	]}
 	{var $thumbnail = 'x120'}
 
 	{if $presenter->route->photo}
@@ -12,11 +16,17 @@
 
 	{if count($presenter->categories)}
 		<h2>{_Subcategories}</h2>
-		{control itemList $presenter->categories, config=>[variant=>'catalogCategoryList']}
+		{control itemList $presenter->categories, config => [ variant => '@catalog.list' ]}
 	{/if}
+	{/cache}
 
 	<h2>{_Products}</h2>
 
+	{cache [$presenter->routeId, $control['pagination']->page, $presenter->order], tags => [
+		'page' => $presenter->pageId,
+		'route' => $presenter->routeId,
+		'language' => $presenter->lang,
+	]}
 	<div class="tabbable">
 		<ul class="nav nav-tabs">
 			<li n:class="$presenter->order=='price' ? active"><a n:href="this order=>'price'">{_'By price'}</a></li>
@@ -33,15 +43,16 @@
 					<li><a href="{link this itemsPerPage=>500}">500</a></li>
 				</ul>
 			</li>
-			<li class="pull-right{if $presenter->show !== NULL} active{/if}"><a href="{link this show=>'table'}"><span class="icon icon-th-list"></span></a></li>
-			<li class="pull-right{if $presenter->show === NULL} active{/if}"><a href="{link this show=>NULL}"><span class="icon icon-th"></span></a></li>
+			<li class="pull-right{if $presenter->show !== NULL} active{/if}"><a href="{link this show=>'table'}"><span class="glyphicon glyphicon-th-list"></span></a></li>
+			<li class="pull-right{if $presenter->show === NULL} active{/if}"><a href="{link this show=>NULL}"><span class="glyphicon glyphicon-th"></span></a></li>
 		</ul>
 	</div>
 
-	{control vp}
+	{control pagination, config => [ variant => '@catalog.route' ]}
 	{if $presenter->order=='price'}{var $qb = $control->getItemsBuilder()->orderBy('a.price', 'ASC')}{/if}
 	{if $presenter->order=='name'}{var $qb = $control->getItemsBuilder()->orderBy('r.name', 'ASC')}{/if}
-	{control itemList $qb->getQuery()->getResult(), config=>[variant=>'catalogListDefault']}
-	{control vp}
+	{control itemList $qb->getQuery()->getResult(), config => [ variant => '@catalog.route' ]}
+	{control pagination, config => [ variant => '@catalog.route' ]}
+	{/cache}
 
 {/define}

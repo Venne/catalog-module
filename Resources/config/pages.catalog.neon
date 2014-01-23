@@ -95,10 +95,6 @@ factories:
 		class: CatalogModule\Pages\Catalog\RoutePresenter
 		tags: [presenter]
 
-	catalog.pages.catalog.categoryPresenter:
-		class: CatalogModule\Pages\Catalog\CategoryPresenter
-		tags: [presenter]
-
 	catalog.pages.catalog.itemPresenter:
 		class: CatalogModule\Pages\Catalog\ItemPresenter
 		tags: [presenter]

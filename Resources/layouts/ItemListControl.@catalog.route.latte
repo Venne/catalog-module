@@ -1,0 +1,38 @@
+{if $presenter->show === 'table'}
+	<div class="row">
+		<div class="thumbnails">
+		{foreach $routes as $product}
+			{if ($iterator->counter - 1)  % 1 === 0}
+			</div>
+				</div>
+				<div class="row">
+				<div class="thumbnails">
+			{/if}
+			<div class="col-md-12">
+				<div class="thumbnail">
+					{control catalogProduct $product, $presenter->show}
+				</div>
+			</div>
+		{/foreach}
+		</div>
+	</div>
+{else}
+
+<div class="row">
+	<ul class="thumbnails">
+		{foreach $routes as $product}
+		{if ($iterator->counter - 1)  % 3 === 0}
+	</ul>
+</div>
+<div class="row">
+	<div class="thumbnails">
+		{/if}
+		<div class="col-md-4">
+			<div class="thumbnail">
+				{control catalogProduct $product, $presenter->show}
+			</div>
+		</div>
+		{/foreach}
+	</div>
+</div>
+{/if}

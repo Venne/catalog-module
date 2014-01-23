@@ -11,8 +11,8 @@
 
 namespace CatalogModule\Pages\Catalog;
 
+use BlogModule\Pages\Blog\AbstractRouteEntity;
 use Doctrine\ORM\Mapping as ORM;
-use GalleryModule\Pages\Gallery\AbstractRouteEntity;
 
 /**
  * @author Josef Kříž <pepakriz@gmail.com>

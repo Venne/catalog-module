@@ -1,8 +1,7 @@
 {var $items = 0}
 {var $sum = 0}
-<div class="navbar">
-	<div class="navbar-inner">
-		<div class="container">
+<div class="navbar navbar-default">
+	<div class="navbar-collapse collapse">
 			{if $products}
 				{foreach $products as $id=>$orders}
 					{foreach $orders as $order}
@@ -13,14 +12,13 @@
 					{/foreach}
 				{/foreach}
 			{/if}
-			<ul style="width: 100%;" class="nav">
-				<li style="width: 100%;" class="dropdown">
-					<a href="#" class="pull-left dropdown-toggle" data-toggle="dropdown"><span
-								class="icon icon-shopping-cart"></span> <strong>{_cart}:</strong> <span
-								class="pull-right">{$sum|number:0:' ':' '} Kč <b class="caret"></b></span></a>
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
+								class="icon icon-shopping-cart"></span> <strong>{_cart}:</strong> <span>{$sum|number:0:' ':' '} Kč <b class="caret"></b></span></a>
 					<ul class="dropdown-menu">
 						{if $products && count($products) > 0}
-							<li class="nav-header">{_Products}</li>
+							<li class="dropdown-header">{_Products}</li>
 							{if $products}
 								{foreach $products as $id=>$orders}
 									{foreach $orders as $order}
@@ -43,11 +41,10 @@
 							<li><a href="{plink this route=>$presenter->extendedPage->getOrderRoute()}"><span
 											class="icon icon-shopping-cart"></span> {_'Order products'}</a></li>
 						{else}
-							<li class="nav-header">{_'Cart is empty'}</li>
+							<li class="dropdown-header">{_'Cart is empty'}</li>
 						{/if}
 					</ul>
 				</li>
 			</ul>
 		</div>
-	</div>
 </div>

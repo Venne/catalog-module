@@ -14,7 +14,46 @@ namespace CatalogModule\Pages\Catalog;
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
  */
-class RoutePresenter extends CategoryPresenter
+class RoutePresenter extends AbstractRoutePresenter
 {
+
+
+	/** @var ItemRepository */
+	private $repository;
+
+	/** @var CategoryRepository */
+	private $categoryRepository;
+
+
+	/**
+	 * @param ItemRepository $repository
+	 * @param CategoryRepository $categoryRepository
+	 */
+	public function injectRepository(
+		ItemRepository $repository,
+		CategoryRepository $categoryRepository
+	){
+		$this->repository = $repository;
+		$this->categoryRepository = $categoryRepository;
+	}
+
+
+	/**
+	 * @return CategoryRepository
+	 */
+	protected function getCategoryRepository()
+	{
+		return $this->categoryRepository;
+	}
+
+
+	/**
+	 * @return ItemRepository
+	 */
+	protected function getRepository()
+	{
+		return $this->repository;
+	}
+
 
 }

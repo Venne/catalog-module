@@ -45,13 +45,13 @@ class ProductsControl extends SectionControl
 
 	protected function createComponentTable()
 	{
-		$adminControl = new RouteItemsControl($this->productRepository, $this->getEntity());
+		$adminControl = new RouteItemsControl($this->productRepository, $this->getExtendedPage());
 		$admin = $adminControl->getTable();
 		$table = $admin->getTable();
 
 
 		$repository = $this->productRepository;
-		$entity = $this->entity;
+		$entity = $this->extendedPage;
 		$form = $admin->createForm($this->productFormFactory, 'Blog', function () use ($repository, $entity) {
 			return $repository->createNew(array($entity));
 		}, \CmsModule\Components\Table\Form::TYPE_FULL);

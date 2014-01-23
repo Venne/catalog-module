@@ -42,3 +42,7 @@ extended: rozšířené
 'add product into cart': přidat produkt do košíku
 'cart has been cleared.': nákupní košík byl vyprázdňen.
 'show next items': zobrazit další položky
+
+#message has been sent:
+#& : Některý z produktů, který jste měl v košíku, již neexistuje.
+#& : Některý z modelů produktu, který jste měl v košíku, již neexistuje.

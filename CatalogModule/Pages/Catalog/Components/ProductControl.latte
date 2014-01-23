@@ -2,34 +2,38 @@
 
 	{snippet add}
 	{if (isset($showAdd) && $showAdd == $entity->id) || (isset($showError) && $showError == $entity->id)}
-		<div class="modal fade" id="addModal" style="width: 800px; margin-left: -400px;">
-			<div class="modal-header">
-				<a href="{link this}" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
-				{if !isset($showError)}
-					<h3>{_'Product has been added into cart'}</h3>
-				{else}
-					<h3>{_'Add product into cart'}</h3>
-				{/if}
-			</div>
-			<div class="modal-body">
-				{if !isset($showError)}
-					{capture $text}{_'Product %s has been successfully added into cart'}{/capture}
-					<p>{!=str_replace('%s', "<strong>{$entity->name}</strong>", $text)}</p>
-				{else}
-					{control product-$entity->id}
-				{/if}
-			</div>
-			{if !isset($showError)}
-				<div class="modal-footer">
-					<a href="{link this}" class="btn" data-dismiss="modal" aria-hidden="true"><span
-								class="icon icon-arrow-left"></span> {_'Continue shoping'}</a>
-					<a href="{plink this route=>$presenter->extendedPage->orderRoute}" class="btn btn-primary"><span
-								class="icon icon-shopping-cart icon-white"></span> {_'Go to cart'}</a>
+		<div class="modal fade" id="addModal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<a href="{link this}" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+						{if !isset($showError)}
+							<h3>{_'Product has been added into cart'}</h3>
+						{else}
+							<h3>{_'Add product into cart'}</h3>
+						{/if}
+					</div>
+					<div class="modal-body">
+						{if !isset($showError)}
+							{capture $text}{_'Product %s has been successfully added into cart'}{/capture}
+							<p>{!=str_replace('%s', "<strong>{$entity->name}</strong>", $text)}</p>
+						{else}
+							{control product-$entity->id}
+						{/if}
+					</div>
+					{if !isset($showError)}
+						<div class="modal-footer">
+							<a href="{link this}" class="btn btn-default" data-dismiss="modal" aria-hidden="true"><span
+										class="icon icon-arrow-left"></span> {_'Continue shoping'}</a>
+							<a href="{plink this route=>$presenter->extendedPage->orderRoute}" class="btn btn-primary"><span
+										class="icon icon-shopping-cart icon-white"></span> {_'Go to cart'}</a>
+						</div>
+					{/if}
 				</div>
-			{/if}
+			</div>
 		</div>
 		<script type="text/javascript">
-			$('#addModal').modal('show').on('hidden', function () {
+			$('#addModal').modal('show').on('hidden.bs.modal', function () {
 				window.location = {link this};
 			});
 		</script>
@@ -53,12 +57,12 @@
 					{$entity->route->notation}
 
 					<div class="row-fluid">
-						<div class="span6">
+						<div class="col-md-6">
 							<div class="lead" style="text-align: right;">
 								{$entity->price|number:0:' ':' '},-
 							</div>
 						</div>
-						<div class="span6">
+						<div class="col-md-6">
 							{var $f = $control['product'][$entity->id]}
 							{form $f class=>'pull-right'}
 							{input type class=>"input-small"}
@@ -84,12 +88,12 @@
 			{$entity->route->notation}
 		</p>
 		<a href="{plink this route=>$entity->route}" n:if="$entity->route->photo">
-			<img style="margin-bottom: 5px;" src="{$entity->route->photo->getFileUrl()}" alt="" class="show" width="400" height=""/>
+			<img src="{$entity->route->photo->getFileUrl()}" alt="" class="thumbnail" />
 		</a>
 
 		{if $entity->rrp}
-		<div class="row-fluid">
-			<div class="span12" style="min-height: 20px;">
+		<div class="row">
+			<div class="col-md-12" style="min-height: 20px;">
 				<small class="muted">
 					<s>{$entity->rrp|number:0:' ':' '},-</s> &nbsp; ({$entity->savedPercent}%)
 				</small>
@@ -97,27 +101,27 @@
 		</div>
 		{/if}
 
-		<div class="row-fluid">
-			<div class="span6">
+		<div class="row">
+			<div class="col-md-6">
 				<span class="lead">{$entity->price|number:0:' ':' '},-</span>
 			</div>
-			<div class="span6">
+			<div class="col-md-6">
 				{var $f = $control['product'][$entity->id]}
 				{form $f class=>'navbar-form'}
 				{if $_form['type'] instanceof \Nette\Forms\Controls\HiddenField}
 					{input type}
 				{/if}
-					<button class="pull-right span8 btn btn-primary"
+					<button class="pull-right col-md-8 btn btn-primary"
 									onclick="$({!$_form['order']->getControlPrototype()->id}).click();"><span
-										class="icon icon-white icon-shopping-cart"></span> {_Order}</button>
+										class="glyphicon glyphicon-shopping-cart"></span> {_Order}</button>
 						{input order class=>"btn hidden", style=>"display: none;"}
 				{/form}
 			</div>
 		</div>
 
 		{if $entity->inStock !== NULL}
-		<div class="row-fluid">
-			<div class="span12" style="min-height: 20px;">
+		<div class="row">
+			<div class="col-md-12" style="min-height: 20px;">
 				<small>{_'In stock'}: {$entity->inStock}&nbsp;{_pieces}</small>
 			</div>
 		</div>

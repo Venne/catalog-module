@@ -5,9 +5,9 @@
 {control catalogCart}
 
 <div class="wizard row-fluid">
-	<div class="step span4 active"><span class="badge">1</span> {_'Cart'}</div>
-	<div class="step span4{if $presenter->step > 1} active{/if}"><span class="badge">2</span> {_'Billing information'}</div>
-	<div class="step span4{if $presenter->step > 2} active{/if}"><span class="badge">3</span> {_'Finish'}</div>
+	<div class="step col-md-4 active"><span class="badge">1</span> {_'Cart'}</div>
+	<div class="step col-md-4{if $presenter->step > 1} active{/if}"><span class="badge">2</span> {_'Billing information'}</div>
+	<div class="step col-md-4{if $presenter->step > 2} active{/if}"><span class="badge">3</span> {_'Finish'}</div>
 </div>
 
 {if $presenter->step == 1}
@@ -35,7 +35,7 @@
                     <td>{$item['sum']}</td>
 					{var $sum = $sum + $item['sum'] * $item['productEntity']->price}
                     <td>{$item['sum'] * $item['productEntity']->price}</td>
-					<td><a class="btn btn-mini" n:href="deleteProduct! $id,$orderId">{_remove}</a></td>
+					<td><a class="btn btn-default btn-xs" n:href="deleteProduct! $id,$orderId">{_remove}</a></td>
 				</tr>
 			{/foreach}
 		{/foreach}
